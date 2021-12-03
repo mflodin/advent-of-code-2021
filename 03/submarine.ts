@@ -83,10 +83,10 @@ function calculateCO2ScrubberRating(
     bitCount += Number(row[position]);
   });
 
-  const mostCommon = bitCount >= diagnosticsReport.length / 2 ? "0" : "1";
+  const leastCommon = bitCount >= diagnosticsReport.length / 2 ? "0" : "1";
 
   const remainingReport = diagnosticsReport.filter(
-    (row) => row[position] === mostCommon
+    (row) => row[position] === leastCommon
   );
 
   return calculateCO2ScrubberRating(remainingReport, position + 1);
