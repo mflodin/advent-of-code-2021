@@ -1,5 +1,5 @@
 import fs from "fs";
-import { navigate } from "./submarine";
+import { navigate, navigateWithAim } from "./submarine";
 import type { CourseChange } from "./submarine";
 
 export function readInput(filename: string): Array<CourseChange> {
@@ -20,9 +20,19 @@ export function readInput(filename: string): Array<CourseChange> {
 
 export default function runner() {
   const input = readInput("02/input.txt");
-  const { horizontal, depth } = navigate(input);
+  let { horizontal, depth } = navigate(input);
 
   console.log(
-    `Horizontal: ${horizontal}, depth: ${depth}, answer: ${depth * horizontal}`
+    `A) Horizontal: ${horizontal}, depth: ${depth}, answer: ${
+      depth * horizontal
+    }`
+  );
+
+  ({ horizontal, depth } = navigateWithAim(input));
+
+  console.log(
+    `B) Horizontal: ${horizontal}, depth: ${depth}, answer: ${
+      depth * horizontal
+    }`
   );
 }

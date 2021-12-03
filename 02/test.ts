@@ -1,4 +1,4 @@
-import { navigate } from "./submarine";
+import { navigate, navigateWithAim } from "./submarine";
 import { readInput } from "./runner";
 
 const input = readInput("02/test-input.txt");
@@ -30,4 +30,10 @@ test("Navigates correctly", () => {
   const { horizontal, depth } = navigate(input);
   expect(horizontal).toBe(15);
   expect(depth).toBe(10);
+});
+
+test("Navigates with aim", () => {
+  const { horizontal, depth } = navigateWithAim(input);
+  expect(horizontal).toBe(15);
+  expect(depth).toBe(60);
 });
