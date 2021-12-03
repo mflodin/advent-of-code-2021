@@ -1,4 +1,7 @@
-import { calculatePowerConsumption } from "./submarine";
+import {
+  calculateLifeSupportRating,
+  calculatePowerConsumption,
+} from "./submarine";
 import { readInput } from "./runner";
 
 const input = readInput("03/test-input.txt");
@@ -19,4 +22,10 @@ test("Calculates power consumption", () => {
   const { gammaRate, epsilonRate } = calculatePowerConsumption(input);
   expect(gammaRate).toBe(22);
   expect(epsilonRate).toBe(9);
+});
+
+test("Calculates life support rating", () => {
+  const { oxygenGenerator, co2Scrubber } = calculateLifeSupportRating(input);
+  expect(oxygenGenerator).toBe(23);
+  expect(co2Scrubber).toBe(10);
 });
