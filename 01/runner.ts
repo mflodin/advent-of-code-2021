@@ -6,8 +6,9 @@ export function readInput(filename: string): Array<number> {
   return arr;
 }
 
-import { depthIncrease } from "./sonar";
+import { depthIncrease, rollingDepthIncrease } from "./sonar";
 
 const input = readInput("01/input.txt");
 
 console.log(`Depth increase: ${depthIncrease(input)}`);
+console.log(`Rolling depth increase: ${rollingDepthIncrease(input)}`);
