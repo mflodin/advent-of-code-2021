@@ -2,6 +2,7 @@ import fs from "fs";
 import {
   findOverlappingLines,
   plotHorizontalAndVerticalLines,
+  plotAllLines,
   Point,
 } from "./submarine";
 import type { EndPointPair } from "./submarine";
@@ -29,9 +30,15 @@ export function pointToString(point: Point): string {
 
 export default function runner() {
   const grid = readInput("05/input.txt");
-  const numberOfOverlappingPoints = findOverlappingLines(
+  const verticalAndHorizontalOverlaps = findOverlappingLines(
     plotHorizontalAndVerticalLines(grid)
   );
 
-  console.log(`Number of overlapping points: ${numberOfOverlappingPoints}`);
+  console.log(
+    `A: Number of overlapping points: ${verticalAndHorizontalOverlaps}`
+  );
+
+  const allOverlaps = findOverlappingLines(plotAllLines(grid));
+
+  console.log(`B: Number of overlapping points: ${allOverlaps}`);
 }

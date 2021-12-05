@@ -1,6 +1,7 @@
 import {
   findOverlappingLines,
   plotHorizontalAndVerticalLines,
+  plotAllLines,
 } from "./submarine";
 import { readInput } from "./runner";
 
@@ -55,4 +56,33 @@ test("Finds the overlapping lines", () => {
     plotHorizontalAndVerticalLines(endpointList)
   );
   expect(numberOfOverlappingPoints).toBe(5);
+});
+
+// 1.1....11.
+// .111...2..
+// ..2.1.111.
+// ...1.2.2..
+// .112313211
+// ...1.2....
+// ..1...1...
+// .1.....1..
+// 1.......1.
+// 222111....
+test("Plots all lines", () => {
+  const endpointList = readInput("05/test-input.txt");
+  const grid = plotAllLines(endpointList);
+
+  expect(grid.get("0,9")).toBe(2);
+  expect(grid.get("9,4")).toBe(1);
+  expect(grid.get("2,2")).toBe(2);
+  expect(grid.get("0,0")).toBe(1);
+});
+
+test("Finds the overlapping lines", () => {
+  const endpointList = readInput("05/test-input.txt");
+
+  const numberOfOverlappingPoints = findOverlappingLines(
+    plotAllLines(endpointList)
+  );
+  expect(numberOfOverlappingPoints).toBe(12);
 });
