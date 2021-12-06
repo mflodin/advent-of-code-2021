@@ -53,3 +53,9 @@ test("Can simulate several ticks at once", () => {
   tick(population, 80);
   expect(count(population)).toBe(5934);
 });
+
+test("Can simulate large populations", () => {
+  const population = readInput(TEST_INPUT);
+  tick(population, 256);
+  expect(count(population)).toBe(26984457539);
+});

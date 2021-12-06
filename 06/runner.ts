@@ -23,9 +23,12 @@ function toLanternfishPopulation(string: string): LanternfishPopulation {
 
 export default function runner() {
   const lanternfishPopulation = readInput("06/input.txt");
-  console.log(lanternfishPopulation);
   tick(lanternfishPopulation, 80);
-  const fishCount = count(lanternfishPopulation);
+  let fishCount = count(lanternfishPopulation);
 
-  console.log(`A: Number of lanternfish: ${fishCount}`);
+  console.log(`A: Number of lanternfish after 80 days: ${fishCount}`);
+
+  tick(lanternfishPopulation, 256 - 80);
+  fishCount = count(lanternfishPopulation);
+  console.log(`B: Number of lanternfish after 256 days: ${fishCount}`);
 }
