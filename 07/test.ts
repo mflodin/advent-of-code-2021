@@ -1,4 +1,7 @@
-import { calculateOptimalAlignment } from "./crab-aligner";
+import {
+  calculateCorrectOptimalAlignment,
+  calculateOptimalAlignment,
+} from "./crab-aligner";
 import { readInput } from "./runner";
 
 const TEST_INPUT = "07/test-input.txt";
@@ -34,4 +37,29 @@ test("Finds correct fuel spent", () => {
   const { fuel } = calculateOptimalAlignment(crabPositions);
 
   expect(fuel).toBe(37);
+});
+
+// Move from 16 to 5: 66 fuel
+// Move from 1 to 5: 10 fuel
+// Move from 2 to 5: 6 fuel
+// Move from 0 to 5: 15 fuel
+// Move from 4 to 5: 1 fuel
+// Move from 2 to 5: 6 fuel
+// Move from 7 to 5: 3 fuel
+// Move from 1 to 5: 10 fuel
+// Move from 2 to 5: 6 fuel
+// Move from 14 to 5: 45 fuel
+
+// This costs a total of 168 fuel
+test("Finds actually correct position", () => {
+  const crabPositions = readInput(TEST_INPUT);
+  const { position } = calculateCorrectOptimalAlignment(crabPositions);
+
+  expect(position).toBe(5);
+});
+test("Finds actually correct fuel spent", () => {
+  const crabPositions = readInput(TEST_INPUT);
+  const { fuel } = calculateCorrectOptimalAlignment(crabPositions);
+
+  expect(fuel).toBe(168);
 });

@@ -1,5 +1,8 @@
 import fs from "fs";
-import { calculateOptimalAlignment } from "./crab-aligner";
+import {
+  calculateCorrectOptimalAlignment,
+  calculateOptimalAlignment,
+} from "./crab-aligner";
 
 const INPUT = "07/input.txt";
 
@@ -17,7 +20,9 @@ export function readInput(filename: string) {
 
 export default function runner() {
   const crabPositions = readInput(INPUT);
-  const { fuel, position } = calculateOptimalAlignment(crabPositions);
+  let { fuel, position } = calculateOptimalAlignment(crabPositions);
 
   console.log(`A: Optimal position: ${position}, fuel spent: ${fuel}`);
+  ({ fuel, position } = calculateCorrectOptimalAlignment(crabPositions));
+  console.log(`B: Correct optimal position: ${position}, fuel spent: ${fuel}`);
 }
