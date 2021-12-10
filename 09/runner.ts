@@ -1,5 +1,10 @@
 import fs from "fs";
-import { findLowPoints, calculateRiskLevel } from "./smoke-basin";
+import {
+  findLowPoints,
+  calculateRiskLevel,
+  findBasins,
+  calculateBasinFactor,
+} from "./smoke-basin";
 import type { Cave } from "./smoke-basin";
 
 const INPUT = "09/input.txt";
@@ -21,4 +26,8 @@ export default function runner() {
   const riskLevel = calculateRiskLevel(lowPoints);
 
   console.log(`A: Risk level: ${riskLevel}`);
+
+  const basins = findBasins(input);
+  const basinFactor = calculateBasinFactor(basins);
+  console.log(`B: Basin Factor: ${basinFactor}`);
 }

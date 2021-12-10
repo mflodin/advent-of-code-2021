@@ -1,5 +1,11 @@
-import { findLowPoints, calculateRiskLevel } from "./smoke-basin";
+import {
+  findLowPoints,
+  calculateRiskLevel,
+  findBasins,
+  calculateBasinFactor,
+} from "./smoke-basin";
 import { readInput } from "./runner";
+import { numericalSort } from "../utils/math";
 
 const TEST_INPUT = "09/test-input.txt";
 
@@ -35,4 +41,20 @@ test("Calculates the risk level", () => {
   const riskLevel = calculateRiskLevel(lowPoints);
 
   expect(riskLevel).toBe(15);
+});
+
+test("Finds all basins", () => {
+  const input = readInput(TEST_INPUT);
+  const basins = findBasins(input);
+
+  expect(basins.length).toBe(4);
+  expect(basins.sort(numericalSort)).toEqual([3, 9, 9, 14]);
+});
+
+test("Calculates the basin factor", () => {
+  const input = readInput(TEST_INPUT);
+  const basins = findBasins(input);
+  const basinFactor = calculateBasinFactor(basins);
+
+  expect(basinFactor).toBe(1134);
 });
