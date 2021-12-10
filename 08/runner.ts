@@ -1,15 +1,18 @@
 import fs from "fs";
-import { countDistinctNumbers as countDistinguishableDigits } from "./digit-decoder";
+import {
+  countDistinctNumbers as countDistinguishableDigits,
+  sumAllOutputValues,
+} from "./digit-decoder";
 
 const INPUT = "08/input.txt";
 
-type Message = {
+export type Message = {
   signal: Array<SignalPattern>;
   digits: Array<DigitCode>;
 };
 
-type SignalPattern = string;
-type DigitCode = string;
+export type SignalPattern = string;
+export type DigitCode = string;
 
 export function readInput(filename: string): Array<Message> {
   const file = fs.readFileSync(filename);
@@ -39,4 +42,7 @@ export default function runner() {
   const count = countDistinguishableDigits(digits);
 
   console.log(`A: Number of distinguishable digits: ${count}`);
+
+  const sum = sumAllOutputValues(input);
+  console.log(`B: Sum of all output values: ${sum}`);
 }
