@@ -1,5 +1,11 @@
 import fs from "fs";
-import { findCorruptedLines, calculateScore } from "./syntax-checker";
+import {
+  findCorruptedLines,
+  calculateScore,
+  findMiddleScore,
+  autocomplete,
+  calculateAutocompleteScores,
+} from "./syntax-checker";
 
 const INPUT = "10/input.txt";
 
@@ -12,8 +18,19 @@ export function readInput(filename: string): Array<string> {
 
 export default function runner() {
   const input = readInput(INPUT);
-  const corruptedLines = findCorruptedLines(input);
-  const score = calculateScore(corruptedLines);
+  const corrupted = findCorruptedLines(input);
+  const syntaxErrorScore = calculateScore(corrupted);
 
-  console.log(`A: Syntax error score: ${score}`);
+  console.log(`A: Syntax error score: ${syntaxErrorScore}`);
+
+  const corruptedLines = corrupted.map((l) => l.input);
+
+  const nonCorruptedLines = input.filter(
+    (line) => !corruptedLines.includes(line)
+  );
+  const autocompletedLines = autocomplete(nonCorruptedLines);
+  const autocompleteScores = calculateAutocompleteScores(autocompletedLines);
+  const middleScore = findMiddleScore(autocompleteScores);
+
+  console.log(`B: Autocomplete middle score: ${middleScore}`);
 }

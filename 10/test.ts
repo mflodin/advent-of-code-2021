@@ -1,4 +1,10 @@
-import { findCorruptedLines, calculateScore } from "./syntax-checker";
+import {
+  findCorruptedLines,
+  calculateScore,
+  autocomplete,
+  calculateAutocompleteScores,
+  findMiddleScore,
+} from "./syntax-checker";
 import { readInput } from "./runner";
 
 const TEST_INPUT = "10/test-input.txt";
@@ -72,4 +78,48 @@ test("Calculates the score", () => {
   const score = calculateScore(corruptedLines);
 
   expect(score).toBe(26397);
+});
+
+// [({(<(())[]>[[{[]{<()<>> - Complete by adding }}]])})].
+// [(()[<>])]({[<{<<[]>>( - Complete by adding )}>]}).
+// (((({<>}<{<{<>}{[]{[]{} - Complete by adding }}>}>)))).
+// {<[[]]>}<{[{[{[]{()[[[] - Complete by adding ]]}}]}]}>.
+// <{([{{}}[<[[[<>{}]]]>[]] - Complete by adding ])}>.
+test("Can autocomplete non corrupt lines", () => {
+  const input = readInput(TEST_INPUT);
+  const corruptedLines = findCorruptedLines(input).map((line) => line.input);
+  const nonCorruptedLines = input.filter(
+    (line) => !corruptedLines.includes(line)
+  );
+  const autocompletedLines = autocomplete(nonCorruptedLines);
+
+  expect(autocompletedLines.map((l) => l.addendum)).toEqual([
+    "}}]])})]",
+    ")}>]})",
+    "}}>}>))))",
+    "]]}}]}]}>",
+    "])}>",
+  ]);
+});
+
+// }}]])})] - 288957 total points.
+// )}>]}) - 5566 total points.
+// }}>}>)))) - 1480781 total points.
+// ]]}}]}]}> - 995444 total points.
+// ])}> - 294 total points.
+test("Can calculate autocomplete scores", () => {
+  const input = readInput(TEST_INPUT);
+  const corruptedLines = findCorruptedLines(input).map((line) => line.input);
+  const nonCorruptedLines = input.filter(
+    (line) => !corruptedLines.includes(line)
+  );
+  const autocompletedLines = autocomplete(nonCorruptedLines);
+  const scores = calculateAutocompleteScores(autocompletedLines);
+
+  expect(scores).toEqual([288957, 5566, 1480781, 995444, 294]);
+});
+
+test("Can find middle score", () => {
+  const middleScore = findMiddleScore([288957, 5566, 1480781, 995444, 294]);
+  expect(middleScore).toBe(288957);
 });
