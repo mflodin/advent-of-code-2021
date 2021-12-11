@@ -4,9 +4,9 @@
   "description": "Advent of Code 2021 solutions",
   "main": "index.js",
   "scripts": {
-    "test": "jest ./09/test.ts --watch",
-    "dev": "nodemon ./09/index.js",
-    "start": "node ./build/09/index.js",
+    "test": "jest ./10/test.ts --watch",
+    "dev": "nodemon ./10/index.js",
+    "start": "node ./build/10/index.js",
     "watch": "tsc --watch",
     "build": "tsc",
     "yolo": "npm run build && npm start"
